@@ -1,0 +1,5 @@
+{
+    "java.debug.settings.onBuildFailureProceed": true,
+    "java.compiler.preview": "enabled"
+    "editor.formatOnSave": true,
+}
