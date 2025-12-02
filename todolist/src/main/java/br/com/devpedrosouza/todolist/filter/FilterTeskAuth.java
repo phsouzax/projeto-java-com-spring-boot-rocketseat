@@ -25,7 +25,7 @@ public class FilterTeskAuth extends OncePerRequestFilter {
 
         var servletPath = request.getServletPath();
 
-        if (servletPath.equals("/tasks/")) {
+        if (servletPath.startsWith("/tasks/")) {
             // Autenticação aqui
             var authorization = request.getHeader("Authorization");
 

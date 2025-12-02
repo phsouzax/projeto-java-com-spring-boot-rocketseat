@@ -29,4 +29,15 @@ public class TaskModel {
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    static class getStartAt {
+
+        public getStartAt() {
+        }
+
+        public static boolean isAfter(LocalDateTime endAt) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'isAfter'");
+        }
+    }
 }
