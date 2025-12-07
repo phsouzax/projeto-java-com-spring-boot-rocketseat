@@ -19,7 +19,9 @@ public class TaskModel {
 
     private UUID id;
     private String description;
+
     @Column(length = 50)
+
     private String title;
     private LocalDateTime startAt;
     private LocalDateTime endAt;
@@ -30,14 +32,9 @@ public class TaskModel {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    static class getStartAt {
-
-        public getStartAt() {
-        }
-
-        public static boolean isAfter(LocalDateTime endAt) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'isAfter'");
-        }
+    public void setTitle(String title) throws Exception {
+        if (title.length() > 50)
+            throw new IllegalArgumentException("O título não pode ter mais de 50 caracteres");
+         this.title = title;
     }
 }

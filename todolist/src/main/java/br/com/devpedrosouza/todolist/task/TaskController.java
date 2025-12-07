@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
@@ -64,17 +63,24 @@ public class TaskController {
         return tasks;
     }
     @PutMapping("/{id}")
-    public TaskModel update (@RequestBody TaskModel taskModel, HttpServletRequest 
-        request, @PathVariable UUID id) {
-        
+    public ResponseEntity update (@RequestBody TaskModel taskModel, HttpServletRequest 
+        request, @PathVariable UUID id){
+        var task = this.taskRepository.findById(id).orElse(null);
+            if (task == null){
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body("Tarefa não encontrada");
+            }
+
         var idUser = request.getAttribute("idUser");
 
-        var task = this.taskRepository.findById(id).orElseThrow(null);
-
+        if (!task.getIdUser().equals(idUser)) {
+             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body("Usuário sem autorização para atualizar esta tarefa");
+        }
         utils.copyNonNullProperties(taskModel, task);
-
-
-        return this.taskRepository.save(task    );
+        var taskUpdate = this.taskRepository.save(task);
+        return ResponseEntity.ok().body(taskUpdate);
      }
 
     }
